@@ -1,7 +1,7 @@
 
 // COMPROBAR QUE FUNCIONA Y LUEGO ACTUALIZAR A BARRA DE PROGRESO
 
-document.getElementById('accessForm').addEventListener("submit", function (event) {
+document.getElementById('accessForm').addEventListener("submit", function validateCredentials(event) {
 
     event.preventDefault();
 
@@ -12,7 +12,7 @@ document.getElementById('accessForm').addEventListener("submit", function (event
     let correcto = true;
 
     // patron a cumplir para usuario valido
-    let validId = /^[a-zA-Z]{2}-[a-z][0-9]{2}$/;
+    let validId = /^[A-Z]{2}-[a-z][0-9]{2}$/;
 
     // patrones a cumplir para contraseña valida
     let mayus = /[A-Z]+/;
@@ -22,7 +22,7 @@ document.getElementById('accessForm').addEventListener("submit", function (event
     // comprobacion de id de agente
     if (agentId.trim() == '' || !agentId.match(validId)) {
         msj = 'Identificación de agente incorrecto';
-        marcarError(agentId);
+        marcarError('agentId', msj);
         correcto = false;
     }
 
@@ -30,26 +30,26 @@ document.getElementById('accessForm').addEventListener("submit", function (event
     // campo rellenado
     if (psswd.trim() == '') {
         msj = 'Contraseña requerida';
-        marcarError('requerida', msj);
+        marcarError_Psswd('requerida', msj);
         correcto = false;
     }
 
     // caracteres
     if (!psswd.match(mayus)) {
         msj = 'Mínimo una letra mayúscula';
-        marcarError('caracteres', msj);
+        marcarError_Psswd('caracteres', msj);
         correcto = false;
     }
 
     // numerico
     if (!psswd.match(num)) {
         msj = 'Debe contener al menos 2 dígitos';
-        marcarError('caracteres', msj);
+        marcarError_Psswd('caracteres', msj);
         correcto = false;
     }
 
     // caracteres especiales
-    if (!psswd.match(special_chars)) {
+    /*if (!psswd.match(special_chars)) {
         msj = 'Debe contener al menos 2 caracteres especiales';
         marcarError('especiales', msj);
         correcto = false;
@@ -60,31 +60,36 @@ document.getElementById('accessForm').addEventListener("submit", function (event
         msj = 'Tamaño mín. 16 caracteres';
         marcarError('tamanio', msj);
         correcto = false;
-    }
+    }*/
 
     if (correcto) { document.getElementById("accessForm").submit() };
 
 })
 
-document.getElementById(agentId).addEventListener("input", limpiarError(agentId));
-document.getElementById(psswd).addEventListener("input", limpiarError(psswd));
+document.getElementById('agentIdHelp').addEventListener("change", function () { limpiarError('agentId') });
+document.getElementById('requerida').addEventListener("change", function () { limpiarError('requerida') });
+document.getElementById('caracteres').addEventListener("change", function () { limpiarError('caracteres') });
 
 function marcarError(id, msj) {
 
-    let help = document.createElement('div');
-    help.id = id + 'Help';
-    help.className = 'text-input text-danger';
-    help.innerHTML = msj;
-
-    document.getElementById(id).style.borderColor = red;
-    document.getElementById(id).append(help);
+    document.getElementById(id + 'Help').innerHTML = msj;
+    document.getElementById(id + 'Help').style.visibility = 'visible'
 
 }
 
-let limpiarError = function (id) {
+function marcarError_Psswd(id, msj) {
 
-    let help = document.getElementById(id + 'Help');
-    help.remove();
-    document.getElementById(id).style.borderColor = '';
+    //document.getElementById(id).remove();
+    let specific = document.createElement('li');
+    specific.id = id;
+    specific.innerHTML = msj;
+
+    document.getElementById('psswdHelp').appendChild(specific);
+
+}
+
+function limpiarError(id) {
+
+    document.getElementById(id).style.visibility = 'hidden';
 
 }
