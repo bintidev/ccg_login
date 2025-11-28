@@ -18,6 +18,8 @@
     <form action="" method="post">
         <?php
 
+            // se muestra el alert solo si la variable de sesion
+            // ERROR esta establecida, es decir, inicializada
             if (isset($_SESSION['error'])) {
 
                 echo '<div class="alert alert-danger" role="alert">';
@@ -32,7 +34,7 @@
              * 1. Acceder a phpMyAdmin desde barra con http://localhost/phpMyAdmin de busqueda (activar XAMPP, obvio)
              * 2. Dirigirse al apartado Bases de Datos y pulsar crear BD
              * 3. Darle un nombre a la base (login_php) y utf8_spanish_ci
-             * 4. Crear una nueva tabla usuario con 5 columnas
+             * 4. Crear una nueva tabla usuarios con 5 columnas
              * 5. Campos: (user, INT, PRIMARY, AUTOINCREMENT), (idusuario, VARCHAR 255, UNIQUE),
              * (password, VARCHAR 255 [de cara al futuro almacenar codificado], UNIQUE),
              * (nombre, VARCHAR 80), (apellidos, VARCHAR 80)
