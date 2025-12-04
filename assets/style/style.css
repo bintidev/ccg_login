@@ -7,30 +7,25 @@
 html,
 body {
     height: 100%;
-    width: 100vw;
+    width: 100%;        /* ← NO uses 100vw */
     margin: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+
+    display: block;     /* ← QUITA flex del body */
+    padding: 20px;
 }
 
 .background-animated {
     position: fixed;
-    /* ocupa toda la pantalla */
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-
     background-image: url("https://steam.pics/fons/afede0edf03584663cf62f432cba1ad3.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     animation: sway 12s ease-in-out infinite alternate;
-
     z-index: -2;
-    /* fondo detrás de todo */
 }
 
 /* Filtro encima del fondo */
@@ -41,15 +36,9 @@ body {
     left: 0;
     height: 100vh;
     width: 100vw;
-
-    /* ✔ CAMBIA AQUÍ EL COLOR DEL FILTRO */
     background: rgba(39, 0, 16, 0.55);
-
     pointer-events: none;
-    /* no bloquea clics */
-
     z-index: -1;
-    /* debe estar sobre la imagen, pero debajo del contenido */
 }
 
 /* Animación de desplazamiento suave */
@@ -209,12 +198,12 @@ input:focus {
 }
 
 /* LABEL FLOAT BEHAVIOR */
-/*.floating-label input:not(:placeholder-shown) {
+.floating-label input:not(:placeholder-shown) {
     padding: 28px 0px 12px 0px;
 }
 
 .floating-label input:not(:placeholder-shown)+label {
-    transform: translateY(-30px);
+    transform: translateY(-20px);
     opacity: .7;
     color: #f3f2f2;
 }
@@ -230,7 +219,7 @@ input:focus {
 .floating-label input:not(:valid):not(:focus)+label+.icon {
     animation-name: shake-shake;
     animation-duration: .3s;
-}*/
+}
 
 /* SHAKE ANIMATION */
 @keyframes shake-shake {
@@ -260,22 +249,23 @@ input:focus {
 }
 
 /* SESSION LAYOUT */
-.session {
+.container {
     display: flex;
     flex-direction: row;
     width: auto;
     height: auto;
-    margin: auto;
-    background: #ffffff;
+    margin: 20px auto;
+    position: relative;
+    z-index: 10;
+    background: transparent;
     border-radius: 4px;
-    box-shadow: 0px 2px 50px -1px rgba(105, 0, 74, 0.61);
+    box-shadow: 0px 2px 50px -1px rgba(156, 0, 109, 0.801);
 }
 
 /* LEFT PANEL */
 .left {
     width: 220px;
     height: auto;
-
     position: relative;
     background-image: url('https://a-static.besthdwallpaper.com/tokyo-ghoul-re-dragon-kaneki-wallpaper-800x1280-9465_198.jpg');
     background-size: cover;
