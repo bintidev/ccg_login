@@ -108,6 +108,10 @@ include './secure-session.php';
                         </svg>
                     </div>
 
+                    <div>
+                        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php bin2hex(openssl_random_pseudo_bytes(64)); ?>" />
+                    </div>
+
                 <div>
                     <button type="submit" class="mt-5">Log in</button>
                 </div>

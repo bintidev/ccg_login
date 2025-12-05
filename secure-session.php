@@ -1,9 +1,9 @@
 <?php
 
-// los parametros comentados (excluyendo lifetime) son propias
+// los parametros comentados son propias
 // de la fase de produccion
 session_set_cookie_params([
-    //'lifetime' => 3600,                     // esto limita el tiempo de las cookies (opcional)
+    'lifetime' => 3600,                       // esto limita el tiempo de las cookies (opcional)
     'path' => '/',                            // indica desde que directorio está habilitada. Así, toda la web
     //'domain' => 'tu-dominio.com',           // indica desde que dominio se puede acceder a ella únicamente
     //'secure' => isset($_SERVER['HTTPS']),   //*** solo acceso vía https (para el despliegue, no en desarrollos)
@@ -12,3 +12,33 @@ session_set_cookie_params([
 ]);
 
 session_start();
+
+// 2. Define el intervalo en segundos (por ejemplo, 1200 segundos = 20 minutos)
+$regenerate_interval = 1200;
+
+// 3. Almacena el tiempo de la última regeneración si no existe
+if (!isset($_SESSION['last_regeneration'])) {
+    $_SESSION['last_regeneration'] = time();
+}
+
+// 4. Verifica y regenera si es necesario
+if (time() - $_SESSION['last_regeneration'] >= $regenerate_interval) {
+	// Regenera el ID de sesión y elimina los datos de la sesión antigua
+	session_regenerate_id(true);
+	// Actualiza el timestamp para el próximo intervalo
+	$_SESSION['last_regeneration'] = time();
+}
+
+// generamos la primera vez un token que garantiza
+// haber ingresado correctamente. impide la suplantacion
+if (!isset($_SESSION['csrf_token'])) {
+	// Creación de un CSRF Token
+    // genera un string aleatorio de 64 bytes y luego
+    // se aplica un hashing
+	$csrf_token = bin2hex(openssl_random_pseudo_bytes(64));
+
+	// Resguardo del CSRF Token en una sesión
+    // extremadamente dificil de suplantar o imitar
+	$_SESSION['csrf_token'] = $csrf_token;
+
+}

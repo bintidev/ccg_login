@@ -2,15 +2,16 @@
 
     include './secure-session.php';
 
-    // comprueban que se han recibido datos del formulario
-    if (isset($_POST['agentId']) && isset($_POST['passwd'])) {
+    // comprueba que se han recibido datos del formulario
+    if ($_POST['csrf_token'] === $_SESSION['csrf_token']) {
+        /**** comprobar CSRF token para dejar pasar a la aplicacion ****/
 
         // variables necesarios para la conexion
         /* son meramente de prueba. en la vida real
         el valor de estas variables puede ser diferente */
         $host = 'localhost';
-        $user = 'root';  // insesguro
-        $password  = ''; // insesguro
+        $user = 'root';  // ***** inseguro
+        $password  = ''; // ***** inseguro
         $database = 'loginphp';
 
         // creacion de nueva conexion
@@ -62,10 +63,10 @@
 
     } else {
 
+        // se muestra en el alert del formulario de login
+        header('Location: ./index.php');
         // mensaje de error si el usuario intenta acceder directamente desde el enlace
         // habiendose saltado la autenticacion
         $_SESSION['error'] = 'Debe proporcionar las credenciales para acceder al sistema.';
-        // se muestra en el alert del formulario de login
-        header('Location: ./index.php');
 
     }
