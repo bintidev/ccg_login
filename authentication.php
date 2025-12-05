@@ -1,6 +1,6 @@
 <?php
 
-    session_start(); // pendiente de hacer segura
+    include './secure-session.php';
 
     // comprueban que se han recibido datos del formulario
     if (isset($_POST['agentId']) && isset($_POST['passwd'])) {

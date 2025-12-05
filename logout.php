@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include './secure-session.php';
 $_SESSION = []; // se vacian/destruyen todas las variables del sesion
 session_destroy();
 header('Location: ./index.php');

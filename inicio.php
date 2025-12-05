@@ -1,6 +1,6 @@
 <?php
 
-session_start(); // pendiente sesion segura
+include './secure-session.php';
 
 ?>
 
