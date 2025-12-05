@@ -12,7 +12,7 @@ document.getElementById('accessForm').addEventListener("submit", function valida
     let correcto = true;
 
     // patron a cumplir para usuario valido
-    let validId = /^[A-Z]{2}-[a-z][0-9]{2}$/;
+    let validId = /^[A-Z]{2}[0-9]{3}$/;
 
     // patrones a cumplir para contraseña valida
     let mayus = /[A-Z]+/;

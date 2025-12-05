@@ -32,7 +32,7 @@ session_start(); // pendiente sesion segura
             <div class="left col-lg-6 col-md-12">
             </div>
 
-            <form action="" class="log-in d-flex justify-content-center align-items-center col-lg-6 col-md-12"
+            <form action="authentication.php" class="log-in d-flex justify-content-center align-items-center col-lg-6 col-md-12"
                 mathod="post" autocomplete="off" id="accessForm">
 
                 <?php
