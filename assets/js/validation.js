@@ -40,20 +40,20 @@ document.getElementById('accessForm').addEventListener("submit", function valida
 
     // validez
     if (!passwd.match(mayus) || !passwd.match(num) ||
-        !passwd.match(special_chars) || passwd.length < 16) {
+        !passwd.match(special_chars) || passwd.length < 8) {
 
         msj = 'Contraseña inválida';
         marcarError('passwd', msj);
         correcto = false;
-        
+
     }
 
     if (correcto) { document.getElementById("accessForm").submit() };
 
 })
 
-document.getElementById('agentIdHelp').addEventListener("change", function () { limpiarError('agentId') });
-document.getElementById('passwdHelp').addEventListener("change", function () { limpiarError('passwd') });
+document.getElementById('agentIdHelp').addEventListener("change", () => { limpiarError('agentId') });
+document.getElementById('passwdHelp').addEventListener("change", () => { limpiarError('passwd') });
 
 function marcarError(id, msj) {
 

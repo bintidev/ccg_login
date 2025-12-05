@@ -24,16 +24,22 @@ session_start(); // pendiente sesion segura
 
     
     <!-- Contenedor -->
-    <div class="container w-50">
+    <div class="wrapper w-50">
         
-        <div class="row">
+        <!--<div class="row">-->
 
             <!-- Imagen Izq. Dragon -->
             <div class="left col-lg-6 col-md-12">
             </div>
 
             <form action="authentication.php" class="log-in d-flex justify-content-center align-items-center col-lg-6 col-md-12"
-                mathod="post" autocomplete="off" id="accessForm">
+                method="post" autocomplete="off" id="accessForm">
+
+                <!-- CABECERA (logo, nombre organizacion) -->
+                <img src="./assets/img/ccg_logo.png" alt="ccg_logo" width="80" style="margin: 0; padding: 0;" />
+                <h4>We are <span>CCG</span></h4>
+                <p>Welcome back, agent. Please, enter your credentials below:</p>
+
 
                 <?php
 
@@ -47,25 +53,7 @@ session_start(); // pendiente sesion segura
                     unset($_SESSION['error']);
                 }
 
-                /**
-                 * =============================== CREACION DE LA BASE DE DATOS =========================================
-                 * 1. Acceder a phpMyAdmin desde barra con http://localhost/phpMyAdmin de busqueda (activar XAMPP, obvio)
-                 * 2. Dirigirse al apartado Bases de Datos y pulsar crear BD
-                 * 3. Darle un nombre a la base (login_php) y utf8_spanish_ci
-                 * 4. Crear una nueva tabla usuarios con 5 columnas
-                 * 5. Campos: (user, INT, PRIMARY, AUTOINCREMENT), (idusuario, VARCHAR 255, UNIQUE),
-                 * (password, VARCHAR 255 [de cara al futuro almacenar codificado], UNIQUE),
-                 * (nombre, VARCHAR 80), (apellidos, VARCHAR 80)
-                 * 6. Desde apartado insertar, introducir registros de prueba (min. 3)
-                 * 7. Mas adelante se creara un usuario de acceso a BD distinto de root
-                 */
-
                 ?>
-
-                <!-- CABECERA (logo, nombre organizacion) -->
-                <img src="./assets/img/ccg_logo.png" alt="ccg_logo" width="80" style="margin: 0; padding: 0;" />
-                <h4>We are <span>CCG</span></h4>
-                <p>Welcome back, agent. Please, enter your credentials below:</p>
 
 
                 <!-- Campo de ID Agente -->
@@ -122,7 +110,7 @@ session_start(); // pendiente sesion segura
 
             </form>
             
-        </div>
+        <!--</div>-->
         
     </div>
 

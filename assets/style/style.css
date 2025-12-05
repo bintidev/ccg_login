@@ -7,10 +7,12 @@
 html,
 body {
     height: 100%;
-    width: 100%;        /* ← NO uses 100vw */
+    width: 100%;
+    /* ← NO uses 100vw */
     margin: 0;
 
-    display: block;     /* ← QUITA flex del body */
+    display: block;
+    /* ← QUITA flex del body */
     padding: 20px;
 }
 
@@ -202,17 +204,14 @@ input:focus {
     padding: 28px 0px 12px 0px;
 }
 
-.floating-label input:not(:placeholder-shown)+label {
+/*.floating-label input:not(:placeholder-shown)+label {
     transform: translateY(-20px);
     opacity: .7;
     color: #f3f2f2;
-}
+}*/
 
 .floating-label input:valid:not(:placeholder-shown)+label+.icon svg {
     opacity: 1;
-}
-
-.floating-label input:valid:not(:placeholder-shown)+label+.icon svg {
     fill: rgb(236, 236, 236);
 }
 
@@ -249,7 +248,7 @@ input:focus {
 }
 
 /* SESSION LAYOUT */
-.container {
+.wrapper {
     display: flex;
     flex-direction: row;
     width: auto;

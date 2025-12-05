@@ -3,7 +3,7 @@
     session_start(); // pendiente de hacer segura
 
     // comprueban que se han recibido datos del formulario
-    if (isset($_POST['agentId']) && isset($_POST['psswd'])) {
+    if (isset($_POST['agentId'])) {
 
         // variables necesarios para la conexion
         /* son meramente de prueba. en la vida real
@@ -11,7 +11,7 @@
         $host = 'localhost';
         $user = 'root';  // insesguro
         $password  = ''; // insesguro
-        $database = 'login_php';
+        $database = 'loginphp';
 
         // creacion de nueva conexion
         $mysqli_con = new mysqli($host, $user, $password, $database);
@@ -28,7 +28,7 @@
         // habria que comprobar si hubo un intento de inyeccion XSS
         // y contestar con un mensaje de error reprobatorio
         $agentId = htmlspecialchars($_REQUEST['agentId']);
-        $psswd = htmlspecialchars($_REQUEST['psswd']);
+        $passwd = htmlspecialchars($_REQUEST['passwd']);
 
         /**
          * PENDIENTE:
