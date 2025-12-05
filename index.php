@@ -47,14 +47,18 @@ session_start(); // pendiente sesion segura
                 // ERROR esta establecida, es decir, inicializada
                 if (isset($_SESSION['error'])) {
 
-                    echo '<div class="alert alert-danger" role="alert">';
+                    echo '<div class="alert"
+                    style="background-color: rgba(255, 166, 207, 1);
+                    border: solid 1px rgb(97, 16, 43);
+                    color: rgb(97, 16, 43);"
+                    role="alert">';
                     echo $_SESSION['error'];
                     echo '</div>';
                     unset($_SESSION['error']);
+                    
                 }
 
                 ?>
-
 
                 <!-- Campo de ID Agente -->
                 <div class="floating-label mb-3">

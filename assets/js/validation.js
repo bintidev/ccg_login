@@ -16,7 +16,7 @@ document.getElementById('accessForm').addEventListener("submit", function valida
 
     // patrones a cumplir para contraseña valida
     let mayus = /[A-Z]+/;
-    let num = /[0-9]{2,}/;
+    let num = /[0-9]{1,}/;
     let special_chars = /[\W]+/;
 
     // comprobacion de id de agente
@@ -28,18 +28,8 @@ document.getElementById('accessForm').addEventListener("submit", function valida
 
     }
 
-    // comprobacion de contraseña
-    // campo rellenado
-    if (passwd.trim() == '') {
-
-        msj = 'Contraseña requerida';
-        marcarError('passwd', msj);
-        correcto = false;
-
-    }
-
     // validez
-    if (!passwd.match(mayus) || !passwd.match(num) ||
+    if (passwd.trim() == '' || !passwd.match(mayus) || !passwd.match(num) ||
         !passwd.match(special_chars) || passwd.length < 8) {
 
         msj = 'Contraseña inválida';

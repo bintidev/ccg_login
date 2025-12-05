@@ -3,7 +3,7 @@
     session_start(); // pendiente de hacer segura
 
     // comprueban que se han recibido datos del formulario
-    if (isset($_POST['agentId'])) {
+    if (isset($_POST['agentId']) && isset($_POST['passwd'])) {
 
         // variables necesarios para la conexion
         /* son meramente de prueba. en la vida real
@@ -30,13 +30,6 @@
         $agentId = htmlspecialchars($_REQUEST['agentId']);
         $passwd = htmlspecialchars($_REQUEST['passwd']);
 
-        /**
-         * PENDIENTE:
-         * hacer query
-         * redireccionar a index.php si no esta o la contraseña o es erronea
-         * redireccionar a inicio.php si todo es correcto (alert verde)
-         */
-
         // consulta de comprbacion de existencia del usuario en BD
         $query = "SELECT * FROM usuarios WHERE idusuario = '$agentId'";
         $resultado = $mysqli_con->query($query);
@@ -44,18 +37,26 @@
         if ($resultado->num_rows == 0) { // si no devuelve nada (usuario inexistente)
 
             $_SESSION['error'] = 'Usuario no reconocido.';
-            header('Location: ./index.php');
+            header('Location: ./index.php'); // obliga al usuario a volver a intentarlo
 
-        } else {
+        } else { // si se encuentra el usuario en la BD
 
-            // no deberia mandar de vuelta al index, esto es solo
-            // para comprobar el correcto funcionamiento del controlador
-            $_SESSION['error'] = 'Identificación correcta. Bienvenid@';
-            header('Location: ./index.php');
+            // $row recoge trata la fila como un objeto (tambien puede tratarlo como array
+            // con mysqli_fecth_array)
+            // ***** es de la clase por defecto stdClass *****
+            $row = mysqli_fetch_object($resultado);
 
-            // comprobar que las contraseñas coinciden
-            // si no, mensaje de erroir y redireccionar a index.php
-            // si si, redireccrionar a inicio.php
+            if ($row->password == $passwd) {
+                // recoge nombre y apellidos para luego mostrarlos en la página de inicio
+                $_SESSION['nombre'] = $row->nombre;
+                $_SESSION['apellidos'] = $row->apellidos;
+                header('Location: ./inicio.php'); // concede acceso si la contraseña es correcta
+            } else {
+                $_SESSION['error'] = 'Contraseña incorrecta.';
+                header('Location: ./index.php'); // fuerza a repetir la oprecion si no es correcta
+            }
+
+            $mysqli_con->close();
 
         }
 
