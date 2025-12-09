@@ -3,16 +3,16 @@
     include './secure-session.php';
 
     // comprueba que se han recibido datos del formulario
-    if ($_POST['csrf_token'] === $_SESSION['csrf_token']) {
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
         /**** comprobar CSRF token para dejar pasar a la aplicacion ****/
 
-        // variables necesarios para la conexion
+        // variables necesarias para la conexion
         /* son meramente de prueba. en la vida real
         el valor de estas variables puede ser diferente */
         $host = 'localhost';
-        $user = 'root';  // ***** inseguro
-        $password  = ''; // ***** inseguro
-        $database = 'loginphp';
+        $user = 'login-php';  // ***** inseguro
+        $password  = 'CCG_login.php'; // ***** inseguro
+        $database = 'login_php';
 
         // creacion de nueva conexion
         $mysqli_con = new mysqli($host, $user, $password, $database);
@@ -42,7 +42,7 @@
 
         } else { // si se encuentra el usuario en la BD
 
-            // $row recoge trata la fila como un objeto (tambien puede tratarlo como array
+            // $row recoge y trata la fila como un objeto (tambien puede tratarlo como array
             // con mysqli_fecth_array)
             // ***** es de la clase por defecto stdClass *****
             $row = mysqli_fetch_object($resultado);

@@ -16,8 +16,8 @@ document.getElementById('accessForm').addEventListener("submit", function valida
 
     // patrones a cumplir para contraseña valida
     let mayus = /[A-Z]+/;
-    let num = /[0-9]{1,}/;
-    let special_chars = /[\W]+/;
+    let num = /[0-9]+/;
+    let special_chars = /[!?._-#@&%$]+/;
 
     // comprobacion de id de agente
     if (agentId.trim() == '' || !agentId.match(validId)) {
@@ -42,8 +42,8 @@ document.getElementById('accessForm').addEventListener("submit", function valida
 
 })
 
-document.getElementById('agentIdHelp').addEventListener("change", () => { limpiarError('agentId') });
-document.getElementById('passwdHelp').addEventListener("change", () => { limpiarError('passwd') });
+document.getElementById('agentId').addEventListener("change", () => { limpiarError('agentId') });
+document.getElementById('passwd').addEventListener("change", () => { limpiarError('passwd') });
 
 function marcarError(id, msj) {
 
@@ -54,6 +54,6 @@ function marcarError(id, msj) {
 
 function limpiarError(id) {
 
-    document.getElementById(id + ' Help').style.visibility = 'hidden';
+    document.getElementById(id + 'Help').style.visibility = 'hidden';
 
 }

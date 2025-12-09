@@ -11,4 +11,5 @@ if (isset($_COOKIE[session_name()])) {
 }
 session_destroy();
 
+$_SESSION['error'] = 'Se ha cerrado la sesión';
 header('Location: ./index.php');

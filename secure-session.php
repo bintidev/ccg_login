@@ -3,7 +3,7 @@
 // los parametros comentados son propias
 // de la fase de produccion
 session_set_cookie_params([
-    'lifetime' => 3600,                       // esto limita el tiempo de las cookies (opcional)
+    'lifetime' => 1200,                       // esto limita el tiempo de las cookies (opcional)
     'path' => '/',                            // indica desde que directorio está habilitada. Así, toda la web
     //'domain' => 'tu-dominio.com',           // indica desde que dominio se puede acceder a ella únicamente
     //'secure' => isset($_SERVER['HTTPS']),   //*** solo acceso vía https (para el despliegue, no en desarrollos)
@@ -31,7 +31,7 @@ if (time() - $_SESSION['last_regeneration'] >= $regenerate_interval) {
 
 // generamos la primera vez un token que garantiza
 // haber ingresado correctamente. impide la suplantacion
-if (!isset($_SESSION['csrf_token'])) {
+if (empty($_SESSION['csrf_token'])) {
 	// Creación de un CSRF Token
     // genera un string aleatorio de 64 bytes y luego
     // se aplica un hashing
