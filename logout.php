@@ -10,6 +10,3 @@ if (isset($_COOKIE[session_name()])) {
 	setcookie(session_name(), '', time() - 60, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
 }
 session_destroy();
-
-$_SESSION['error'] = 'Se ha cerrado la sesión';
-header('Location: ./index.php');
