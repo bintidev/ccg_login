@@ -126,7 +126,7 @@ button {
 
 button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 2px 6px -1px rgba(255, 63, 153, 0.65);
+    background-color: rgb(146, 0, 68);
 }
 
 button:hover:active {
@@ -258,7 +258,7 @@ input:focus {
     z-index: 10;
     background: transparent;
     border-radius: 4px;
-    box-shadow: 0px 2px 50px -1px rgba(156, 0, 109, 0.801);
+    box-shadow: 0px 0px 35px -1px rgba(156, 0, 109, 0.788);
 }
 
 /* LEFT PANEL */

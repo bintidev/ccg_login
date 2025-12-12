@@ -46,7 +46,7 @@ include './secure-session.php';
             if (isset($_SESSION['error'])) {
 
                 echo '<div class="alert w-75"
-                style="background-color: rgba(255, 166, 207, 1);
+                style="background-color: rgba(211, 123, 164, 1);
                 border: solid 1px rgb(97, 16, 43);
                 color: rgb(97, 16, 43);"
                 role="alert">';
@@ -113,7 +113,7 @@ include './secure-session.php';
             </div>
 
             <div>
-                <button type="submit">Log in</button>
+                <button type="submit" class="mb-2">Log in</button>
             </div>
 
         </form>

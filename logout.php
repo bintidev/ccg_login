@@ -10,3 +10,5 @@ if (isset($_COOKIE[session_name()])) {
 	setcookie(session_name(), '', time() - 60, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
 }
 session_destroy();
+
+header('Location: ./index.php');

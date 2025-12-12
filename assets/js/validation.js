@@ -1,6 +1,4 @@
 
-// COMPROBAR QUE FUNCIONA Y LUEGO ACTUALIZAR A BARRA DE PROGRESO
-
 document.getElementById('accessForm').addEventListener("submit", function validateCredentials(event) {
 
     event.preventDefault();
@@ -48,7 +46,6 @@ document.getElementById('passwd').addEventListener("change", () => { limpiarErro
 function marcarError(id, msj) {
 
     document.getElementById(id + 'Help').innerHTML = msj;
-    document.getElementById(id + 'Help').style.visibility = 'visible'
 
 }
 
