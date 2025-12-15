@@ -3,7 +3,7 @@
 // los parametros comentados son propias
 // de la fase de produccion
 session_set_cookie_params([
-    'lifetime' => 7200,                       // esto limita el tiempo de las cookies/sesion (opcional)
+    'lifetime' => 1200,                       // esto limita el tiempo de las cookies (opcional)
     'path' => '/',                            // indica desde que directorio está habilitada. Así, toda la web
     //'domain' => 'tu-dominio.com',           // indica desde que dominio se puede acceder a ella únicamente
     //'secure' => isset($_SERVER['HTTPS']),   //*** solo acceso vía https (para el despliegue, no en desarrollos)
@@ -28,6 +28,19 @@ if (time() - $_SESSION['last_regeneration'] >= $regenerate_interval) {
 	// Actualiza el timestamp para el próximo intervalo
 	$_SESSION['last_regeneration'] = time();
 }
+
+// tiempo máximo de vida de la sesión
+$session_lifetime = 7200;  // 2 horas en segundos
+
+if (isset($_SESSION['last_regeneration']) && (time() - $_SESSION['last_regeneration'] > $session_lifetime)) {
+    // Comprueba que el tiempo transcurrido no supera el del tiempo de vida de la sesión
+    // Si lo supera, desactiva la sesión
+    session_unset();
+    // Y la destruye
+    session_destroy();
+    header('Location: ./index.php'); // Redirigir a la página de login
+}
+
 
 // generamos la primera vez un token que garantiza
 // haber ingresado correctamente. impide la suplantacion
