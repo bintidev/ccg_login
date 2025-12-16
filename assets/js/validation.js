@@ -15,7 +15,7 @@ document.getElementById('accessForm').addEventListener("submit", function valida
     // patrones a cumplir para contraseña valida
     let mayus = /[A-Z]+/;
     let num = /[0-9]+/;
-    let special_chars = /[!?._-#@&%$]+/;
+    let special_chars = /[\W]+/;
 
     // comprobacion de id de agente
     if (agentId.trim() == '' || !agentId.match(validId)) {
