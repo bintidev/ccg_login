@@ -9,33 +9,37 @@
         // variables necesarias para la conexion
         /* son meramente de prueba. en la vida real
         el valor de estas variables puede ser diferente */
-        $host = 'localhost';
+        $server = 'mysql:host=localhost;dbname=login_php';
         $user = 'login-php';  // ***** inseguro
         $password  = 'CCG_login.php'; // ***** inseguro
-        $database = 'login_php';
 
         // creacion de nueva conexion
-        $mysqli_con = new mysqli($host, $user, $password, $database);
-
-        // comprobar si es posible conectarse a BD
-        if ($mysqli_con->connect_error) {
-            // para evitar el warning que se muestra en tiempo de compilacion
-            $_SESSION['error'] = 'No se puede comprobar usuario en estos momentos. <br>
-                                Repita la operación en unos minutos.';
-            // redireccion a la pagina de inicio de sesion, donde se mostrara el alert
-            header('Location: ./index.php');
-        }
+        $pdo = new PDO($server, $user, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // habria que comprobar si hubo un intento de inyeccion XSS
         // y contestar con un mensaje de error reprobatorio
         $agentId = htmlspecialchars($_REQUEST['agentId']);
         $passwd = htmlspecialchars($_REQUEST['passwd']);
 
-        // consulta de comprbacion de existencia del usuario en BD
-        $query = "SELECT * FROM usuarios WHERE idusuario = '$agentId'";
-        $resultado = $mysqli_con->query($query);
+        // comprobar si es posible conectarse a BD
+        try {
 
-        if ($resultado->num_rows == 0) { // si no devuelve nada (usuario inexistente)
+            // consulta de comprbacion de existencia del usuario en BD
+            $select = $pdo->prepare("SELECT * FROM usuarios WHERE idusuario = '$agentId'");
+            $select->execute();
+
+        } catch (PDOException $p) {
+
+            // para evitar el warning que se muestra en tiempo de compilacion
+            $_SESSION['error'] = 'No se puede comprobar usuario en estos momentos. <br>
+                                Repita la operación en unos minutos.';
+            // redireccion a la pagina de inicio de sesion, donde se mostrara el alert
+            header('Location: ./index.php');
+
+        }
+
+        if ($select->rowCount() == 0) { // si no devuelve nada (usuario inexistente)
 
             $_SESSION['error'] = 'Usuario no reconocido.';
             header('Location: ./index.php'); // obliga al usuario a volver a intentarlo
@@ -43,9 +47,9 @@
         } else { // si se encuentra el usuario en la BD
 
             // $row recoge y trata la fila como un objeto (tambien puede tratarlo como array
-            // con mysqli_fecth_array)
+            // con fetch)
             // ***** es de la clase por defecto stdClass *****
-            $row = mysqli_fetch_object($resultado);
+            $row = $select->fetchObject();
 
             if ($row->password == $passwd) {
                 // recoge nombre y apellidos para luego mostrarlos en la página de inicio
@@ -57,7 +61,8 @@
                 header('Location: ./index.php'); // fuerza a repetir la oprecion si no es correcta
             }
 
-            $mysqli_con->close();
+            // cerrar conexión
+            $pdo = null;
 
         }
 
