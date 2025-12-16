@@ -13,10 +13,6 @@
         $user = 'login-php';  // ***** inseguro
         $password  = 'CCG_login.php'; // ***** inseguro
 
-        // creacion de nueva conexion
-        $pdo = new PDO($server, $user, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // habria que comprobar si hubo un intento de inyeccion XSS
         // y contestar con un mensaje de error reprobatorio
         $agentId = htmlspecialchars($_REQUEST['agentId']);
@@ -25,6 +21,9 @@
         // comprobar si es posible conectarse a BD
         try {
 
+            // creacion de nueva conexion
+            $pdo = new PDO($server, $user, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             // consulta de comprbacion de existencia del usuario en BD
             $select = $pdo->prepare("SELECT * FROM usuarios WHERE idusuario = '$agentId'");
             $select->execute();
